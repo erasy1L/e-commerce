@@ -1,0 +1,10 @@
+go 1.22.5
+
+use (
+	./internal/common
+	./internal/api-gateway
+	./internal/order
+	./internal/payment
+	./internal/product
+	./internal/user
+)

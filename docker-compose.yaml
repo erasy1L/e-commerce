@@ -1,0 +1,107 @@
+services:
+  gateway:
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+    volumes:
+      - ./internal:/internal
+      - ./go.work:/go.work
+      - ./vendor:/vendor
+    ports:
+      - "$GATEWAY_PORT:$GATEWAY_PORT"
+    working_dir: /internal/api-gateway
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+  order:
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+    volumes:
+      - ./internal:/internal
+      - ./go.work:/go.work
+      - ./vendor:/vendor
+    ports:
+      - "$ORDER_PORT:$ORDER_PORT"
+    working_dir: /internal/order
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+  payment:
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+    volumes:
+      - ./internal:/internal
+      - ./go.work:/go.work
+      - ./vendor:/vendor
+    ports:
+      - "$PAYMENT_PORT:$PAYMENT_PORT"
+    working_dir: /internal/payment
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+  user:
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+    volumes:
+      - ./internal:/internal
+      - ./go.work:/go.work
+      - ./vendor:/vendor
+    ports:
+      - "$USER_PORT:$USER_PORT"
+    working_dir: /internal/user
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+  product:
+    build:
+      context: docker/
+      dockerfile: Dockerfile
+    volumes:
+      - ./internal:/internal
+      - ./go.work:/go.work
+      - ./vendor:/vendor
+    ports:
+      - "$PRODUCT_PORT:$PRODUCT_PORT"
+    expose:
+      - "$PRODUCT_GRPC_PORT"
+    working_dir: /internal/product
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+  db:
+    image: postgres:16.3
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    env_file: .env
+    healthcheck:
+      test:  pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB
+      interval: 3s
+      timeout: 4m
+      retries: 5
+    restart: always
+  migrate:
+    image: migrate/migrate
+    volumes:
+      - ./migrations/postgres:/migrations
+    command: -path=/migrations/ -database=postgres://postgres:postgres@db:5432/postgres?sslmode=disable up  
+    depends_on:
+      db:
+        condition: service_healthy
+    

@@ -1,0 +1,54 @@
+syntax = 'proto3';
+
+package api.proto;
+
+option go_package = "./product";
+
+service Products {
+  rpc UpdateProductStock(UpdateProductStockRequest) returns (UpdateProductStockResponse);
+  rpc ProductsAvailable(ProductsAvailableRequest) returns (ProductsAvailableResponse);
+  rpc GetProductPrices(GetProductPricesRequest) returns (GetProductPricesResponse);
+}
+
+enum UpdateType {
+  INCREMENT = 0;
+  DECREMENT = 1;
+}
+
+message UpdateProductStockRequest {
+  repeated UpdateProduct updates = 1;
+}
+
+message UpdateProduct {
+  string product_id = 1;
+  int32 quantity = 2;
+  UpdateType update_type = 3;
+}
+
+message UpdateProductStockResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ProductsAvailableRequest {
+  repeated string product_ids = 1;
+}
+
+message ProductsAvailableResponse {
+	repeated ProductAvailability availability = 1;
+}
+
+message ProductAvailability {
+	string product_id = 1;
+	string name = 2;
+	bool available = 3;
+	int32 stock = 4;
+}
+
+message GetProductPricesRequest {
+  repeated string product_ids = 1;
+}
+
+message GetProductPricesResponse {
+  map<string, float> prices = 1;
+}

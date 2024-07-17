@@ -1,0 +1,27 @@
+syntax = 'proto3';
+
+package api.proto;
+
+option go_package = "./order";
+
+service Orders {
+	rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (UpdateOrderStatusResponse);
+	rpc GetOrderProductIDs(GetOrderProductIDsRequest) returns (GetOrderProductIDsResponse);
+}
+
+message UpdateOrderStatusRequest {
+	string order_id = 1;
+	string status = 2;
+}
+
+message UpdateOrderStatusResponse {
+	bool success = 1;
+}
+
+message GetOrderProductIDsRequest {
+	string order_id = 1;
+}
+
+message GetOrderProductIDsResponse {
+	repeated string product_ids = 1;
+}
