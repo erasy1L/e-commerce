@@ -2,7 +2,7 @@ services:
   - type: web
     name: gateway
     runtime: docker
-    plan: free
+    plan: starter
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
     startCommand: ""  # Add if needed
@@ -17,7 +17,7 @@ services:
   - type: web
     name: order
     runtime: docker
-    plan: free
+    plan: starter
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
     startCommand: ""  # Add if needed
@@ -32,7 +32,7 @@ services:
   - type: web
     name: payment
     runtime: docker
-    plan: free
+    plan: starter
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
     startCommand: ""  # Add if needed
@@ -47,7 +47,7 @@ services:
   - type: web
     name: user
     runtime: docker
-    plan: free
+    plan: starter
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
     startCommand: ""  # Add if needed
@@ -62,7 +62,7 @@ services:
   - type: web
     name: product
     runtime: docker
-    plan: free
+    plan: starter
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
     startCommand: ""  # Add if needed
