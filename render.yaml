@@ -1,7 +1,7 @@
 services:
   - type: web
     name: gateway
-    env: docker
+    runtime: docker
     plan: free
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
@@ -17,7 +17,7 @@ services:
 
   - type: web
     name: order
-    env: docker
+    runtime: docker
     plan: free
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
@@ -33,7 +33,7 @@ services:
 
   - type: web
     name: payment
-    env: docker
+    runtime: docker
     plan: free
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
@@ -49,7 +49,7 @@ services:
 
   - type: web
     name: user
-    env: docker
+    runtime: docker
     plan: free
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
@@ -65,7 +65,7 @@ services:
 
   - type: web
     name: product
-    env: docker
+    runtime: docker
     plan: free
     dockerfilePath: ./docker/Dockerfile
     buildCommand: ""  # Add if needed
@@ -80,6 +80,6 @@ services:
         fromDatabase:
           name: db
           property: connectionString
-
-name: db # Required
+databases:
+  - name: db # Required
     postgresMajorVersion: "16"
