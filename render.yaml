@@ -11,7 +11,7 @@ services:
         value: ${GATEWAY_PORT}
       - key: DB_HOST
       - key: DATABASE_URL
-          fromDatabase:
+        fromDatabase:
           name: db
           property: connectionString
 
@@ -27,7 +27,7 @@ services:
         value: ${ORDER_PORT}
       - key: DB_HOST
       - key: DATABASE_URL
-          fromDatabase:
+        fromDatabase:
           name: db
           property: connectionString
 
@@ -43,7 +43,7 @@ services:
         value: ${PAYMENT_PORT}
       - key: DB_HOST
       - key: DATABASE_URL
-          fromDatabase:
+        fromDatabase:
           name: db
           property: connectionString
 
@@ -59,7 +59,7 @@ services:
         value: ${USER_PORT}
       - key: DB_HOST
       - key: DATABASE_URL
-          fromDatabase:
+        fromDatabase:
           name: db
           property: connectionString
 
@@ -76,9 +76,10 @@ services:
       - key: PRODUCT_GRPC_PORT
         value: ${PRODUCT_GRPC_PORT}
       - key: DB_HOST
-        fromService:
+      - key: DATABASE_URL
+        fromDatabase:
           name: db
-          type: internal
+          property: connectionString
 
 name: db # Required
     postgresMajorVersion: "16"
