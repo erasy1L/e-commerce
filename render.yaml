@@ -1,0 +1,89 @@
+services:
+  - type: web
+    name: gateway
+    env: docker
+    plan: free
+    dockerfilePath: ./docker/Dockerfile
+    buildCommand: ""  # Add if needed
+    startCommand: ""  # Add if needed
+    envVars:
+      - key: GATEWAY_PORT
+        value: ${GATEWAY_PORT}
+      - key: DB_HOST
+        fromService:
+          name: db
+          type: internal
+
+  - type: web
+    name: order
+    env: docker
+    plan: free
+    dockerfilePath: ./docker/Dockerfile
+    buildCommand: ""  # Add if needed
+    startCommand: ""  # Add if needed
+    envVars:
+      - key: ORDER_PORT
+        value: ${ORDER_PORT}
+      - key: DB_HOST
+        fromService:
+          name: db
+          type: internal
+
+  - type: web
+    name: payment
+    env: docker
+    plan: free
+    dockerfilePath: ./docker/Dockerfile
+    buildCommand: ""  # Add if needed
+    startCommand: ""  # Add if needed
+    envVars:
+      - key: PAYMENT_PORT
+        value: ${PAYMENT_PORT}
+      - key: DB_HOST
+        fromService:
+          name: db
+          type: internal
+
+  - type: web
+    name: user
+    env: docker
+    plan: free
+    dockerfilePath: ./docker/Dockerfile
+    buildCommand: ""  # Add if needed
+    startCommand: ""  # Add if needed
+    envVars:
+      - key: USER_PORT
+        value: ${USER_PORT}
+      - key: DB_HOST
+        fromService:
+          name: db
+          type: internal
+
+  - type: web
+    name: product
+    env: docker
+    plan: free
+    dockerfilePath: ./docker/Dockerfile
+    buildCommand: ""  # Add if needed
+    startCommand: ""  # Add if needed
+    envVars:
+      - key: PRODUCT_PORT
+        value: ${PRODUCT_PORT}
+      - key: PRODUCT_GRPC_PORT
+        value: ${PRODUCT_GRPC_PORT}
+      - key: DB_HOST
+        fromService:
+          name: db
+          type: internal
+
+  - type: db
+    name: db
+    plan: free
+    image: postgres:16.3
+    envVars:
+      - key: POSTGRES_USER
+        value: postgres
+      - key: POSTGRES_PASSWORD
+        value: postgres
+      - key: POSTGRES_DB
+        value: postgres
