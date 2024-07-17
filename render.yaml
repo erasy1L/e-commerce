@@ -10,9 +10,10 @@ services:
       - key: GATEWAY_PORT
         value: ${GATEWAY_PORT}
       - key: DB_HOST
-        fromService:
+      - key: DATABASE_URL
+          fromDatabase:
           name: db
-          type: internal
+          property: connectionString
 
   - type: web
     name: order
@@ -25,9 +26,10 @@ services:
       - key: ORDER_PORT
         value: ${ORDER_PORT}
       - key: DB_HOST
-        fromService:
+      - key: DATABASE_URL
+          fromDatabase:
           name: db
-          type: internal
+          property: connectionString
 
   - type: web
     name: payment
@@ -40,9 +42,10 @@ services:
       - key: PAYMENT_PORT
         value: ${PAYMENT_PORT}
       - key: DB_HOST
-        fromService:
+      - key: DATABASE_URL
+          fromDatabase:
           name: db
-          type: internal
+          property: connectionString
 
   - type: web
     name: user
@@ -55,9 +58,10 @@ services:
       - key: USER_PORT
         value: ${USER_PORT}
       - key: DB_HOST
-        fromService:
+      - key: DATABASE_URL
+          fromDatabase:
           name: db
-          type: internal
+          property: connectionString
 
   - type: web
     name: product
@@ -76,14 +80,5 @@ services:
           name: db
           type: internal
 
-  - type: db
-    name: db
-    plan: free
-    image: postgres:16.3
-    envVars:
-      - key: POSTGRES_USER
-        value: postgres
-      - key: POSTGRES_PASSWORD
-        value: postgres
-      - key: POSTGRES_DB
-        value: postgres
+name: db # Required
+    postgresMajorVersion: "16"
