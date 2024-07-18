@@ -75,6 +75,6 @@ services:
         fromDatabase:
           name: db
           property: connectionString
-databases:
-  - name: db # Required
-    postgresMajorVersion: "16"
+# databases:
+#   - name: db # Required
+#     postgresMajorVersion: "16"
