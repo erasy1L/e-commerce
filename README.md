@@ -38,3 +38,7 @@ gateway-1  | [00] API Gateway started on port 8080 swagger on http://localhost:8
 
 1. [go-chi](https://github.com/go-chi/chi) as router
 2. [zerolog](https://github.com/rs/zerolog) as logger
+
+## TODO
+1. add logging
+2. add oauth
